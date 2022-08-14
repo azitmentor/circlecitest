@@ -18,5 +18,7 @@ jobs:
           resource-name: deployment/whoami2
           show-kubectl-command: true
 
-workflows: null
-
+workflows:
+    "Hello Workflow":
+        jobs:
+          - create-update
