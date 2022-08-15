@@ -4,6 +4,9 @@ orbs:
 jobs:
   build:
     working_directory: /app
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: arm.medium    
     docker:
       - image: docker:17.05.0-ce-git
     steps:
