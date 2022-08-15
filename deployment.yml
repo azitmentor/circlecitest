@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: sampleapp
-          image: containous/sampleapp
+          image: azitmentor/sampleapp
           imagePullPolicy: Always
 
       restartPolicy: Always
