@@ -61,9 +61,9 @@ jobs:
           show-kubectl-command: true
 
       - kubernetes/update-container-image:
-          container-image-updates: 'azitmentor/sampleapp:latest'
+          container-image-updates: 'sampleapp=azitmentor/sampleapp:latest'
           get-rollout-status: true
-          resource-name: sampleapp
+          resource-name: deployment/sampleapp
 
 workflows:
   version: 2
