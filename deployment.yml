@@ -1,25 +1,61 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: whoami2
+  name: sampleapp
   namespace: default
   labels:
-    app: whoami
+    app: sampleapp
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: whoami
+      app: sampleapp
   template:
     metadata:
       labels:
-        app: whoami
+        app: sampleapp
     spec:
       containers:
-        - name: whoami
-          image: containous/whoami
+        - name: sampleapp
+          image: containous/sampleapp
           imagePullPolicy: Always
 
       restartPolicy: Always
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sampleapp-service
+  namespace: default
+  labels:
+    app: sampleapp
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+  selector:
+    app: sampleapp
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sampleapp-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+
+  rules:
+    - host: or2.ezcal.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name:  sampleapp-service
+                port:
+                  number: 80

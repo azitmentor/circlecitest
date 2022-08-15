@@ -48,7 +48,7 @@ jobs:
               docker login -u azitmentor -p $dockerpw
               docker push azitmentor/sampleapp
             fi
-  create-update:
+  deploytokub:
     docker:
       - image: 'cimg/base:stable'
     steps:
@@ -56,7 +56,18 @@ jobs:
       - kubernetes/install-kubectl
       - kubernetes/install-kubeconfig
       - kubernetes/create-or-update-resource:
-          get-rollout-status: true
           resource-file-path: deployment.yml
-          resource-name: deployment/whoami2
+          resource-name: service/sampleapp
           show-kubectl-command: true
+
+      - kubernetes/update-container-image:
+          container-image-updates: 'sampleapp:latest'
+          get-rollout-status: true
+          resource-name: deployment/sampleapp
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploytokub
