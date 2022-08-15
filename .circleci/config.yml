@@ -3,11 +3,12 @@ orbs:
   kubernetes: circleci/kubernetes@1.3.1
 jobs:
   build:
-    machine: true
-    resource_class: azitmentor/myrunner
     working_directory: /app
+    docker:
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Install dependencies
           command: |
@@ -53,7 +54,8 @@ jobs:
     steps:
       - checkout
       - kubernetes/install-kubectl
-      - kubernetes/install-kubeconfig
+      - kubernetes/install-kubeconfig:
+          kubeconfig: KCONFIG
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment.yml
           resource-name: service/sampleapp
@@ -69,7 +71,7 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-#      - deploytokub:
-#          requires:
-#            - build
+      - deploytokub:
+          requires:
+            - build
  
