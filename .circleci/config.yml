@@ -8,7 +8,7 @@ jobs:
       image: ubuntu-2004:202101-01
     resource_class: arm.medium    
     steps:
-      - checkout
+#      - checkout
       - run:
           name: Install dependencies
           command: |
