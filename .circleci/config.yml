@@ -8,14 +8,14 @@ jobs:
       image: ubuntu-2204:2022.04.2
     steps:
       - checkout
-      - run:  docker build -t azitmentor/sampleapp:latest ./sampleapp
+      - run:  docker build -t azitmentor/sampleapp:1.0.0 ./sampleapp
       - deploy:
           name: Push application Docker image
           command: |
             echo $dockerpw
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
               docker login -u azitmentor -p $dockerpw
-              docker push azitmentor/sampleapp:latest
+              docker push azitmentor/sampleapp:1.0.0
             fi
   deploytokub:
     docker:
@@ -31,7 +31,7 @@ jobs:
           show-kubectl-command: true
 
       - kubernetes/update-container-image:
-          container-image-updates: 'sampleapp=azitmentor/sampleapp:latest'
+          container-image-updates: 'sampleapp=azitmentor/sampleapp:1.0.0'
           get-rollout-status: true
           resource-name: deployment/sampleapp
 
