@@ -9,7 +9,7 @@ jobs:
     steps:
       - run: echo "Hi I'm on Runners!"
       - checkout
-      - run:  sudo docker build -t azitmentor/sampleapp:1.0.0 ./sampleapp
+      - run:  docker build -t azitmentor/sampleapp:1.0.0 ./sampleapp
       - run: |
             echo $dockerpw
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
