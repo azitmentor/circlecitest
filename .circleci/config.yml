@@ -10,9 +10,7 @@ jobs:
       - run: echo "Hi I'm on Runners!"
       - checkout
       - run:  docker build -t azitmentor/sampleapp:1.0.0 ./sampleapp
-      - deploy:
-          name: Push application Docker image
-          command: |
+      - run: |
             echo $dockerpw
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
               docker login -u azitmentor -p $dockerpw
