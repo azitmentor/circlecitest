@@ -4,10 +4,9 @@ orbs:
 jobs:
   build:
     #working_directory: /app
-    machine: true
-    resource_class: azitmentor/myrunner
+    machine:
+      image: ubuntu-2204:2022.04.2
     steps:
-      - run: echo "Hi I'm on Runners!"
       - checkout
       - run:  docker build -t azitmentor/sampleapp:1.0.0 ./sampleapp
       - deploy:
