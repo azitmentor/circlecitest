@@ -49,7 +49,7 @@ metadata:
 spec:
 
   rules:
-    - host: aws.laky.ovh
+    - host: or2.ezcal.net
       http:
         paths:
           - path: /
