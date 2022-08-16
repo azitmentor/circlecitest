@@ -32,7 +32,14 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./samplewebapp
+          context: ./sampleapp
           platforms: linux/amd64,linux/arm64
           push: true
           tags: azitmentor/sampleapp:1.1.0
+          
+    - name: Trigger deploy
+      uses: Consensys/kubernetes-action@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KCONFIG }}
+      with:
+          args: get pods -A
