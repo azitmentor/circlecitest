@@ -42,7 +42,7 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KCONFIG }}
         with:
-            args: apply -f deployment.yaml
+            args: apply -f deployment.yml
 
       - name: Kubernetes rollout restart
         uses: Consensys/kubernetes-action@master
